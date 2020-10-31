@@ -4,22 +4,23 @@
 #include <string>
 #include <unordered_map>
 
-namespace DepthAI {
+namespace DepthAI
+{
 
 // shared ptr for cv::Mat
 using CV_mat_ptr = std::shared_ptr<cv::Mat>;
 
 // tuple of data packets on which DepthAI is publishing the streams
-using PacketsTuple = std::tuple<
-    std::list<std::shared_ptr<NNetPacket>>,
-    std::list<std::shared_ptr<HostDataPacket>>>;
+using PacketsTuple =
+    std::tuple<std::list<std::shared_ptr<NNetPacket>>, std::list<std::shared_ptr<HostDataPacket>>>;
 
 /**  DepthAI:
- *   This is a wrapper on the host side of the device which 
+ *   This is a wrapper on the host side of the device which
  *   helps in initializing device, creating pipeline
- *   and fetching the frames as cv::Mat. 
+ *   and fetching the frames as cv::Mat.
  */
-class DepthAI : public Device {
+class DepthAI : public Device
+{
 
 public:
     /**  Constructor:
@@ -34,10 +35,12 @@ public:
 
     /* API to stream output frames from device.
      * AI models results and metadata is WIP
-     * @param output_streams (std::unordered_map<std::string, CV_mat_ptr>): output_streams is a placeholder 
-     * to extract all the streams being sent by the device. 
+     * @param output_streams (std::unordered_map<std::string, CV_mat_ptr>): output_streams is a
+     * placeholder to extract all the streams being sent by the device.
      */
-    void get_streams(std::unordered_map<std::string, CV_mat_ptr>& output_streams);
+    void get_streams(
+        std::unordered_map<std::string, CV_mat_ptr>& output_streams,
+        std::list<std::shared_ptr<NNetPacket>>& output_NN_obj);
 
     /* Destructor */
     ~DepthAI() = default;
@@ -50,7 +53,7 @@ public:
     static const int DefaultMonoHeight = 720;
     // setting default mono frames height
     static const int DefaultMonoWidth = 1280;
-    
+
 private:
     // Depthai's pipeline object.
     std::shared_ptr<CNNHostPipeline> pipeline_;
@@ -72,8 +75,8 @@ private:
 
     std::unordered_map<std::string, CV_mat_ptr> image_stream_holder_;
 
-    /* 
-     * Fetches the width and height of the color and stereo 
+    /*
+     * Fetches the width and height of the color and stereo
      * frames from the config.
      */
     void set_resolution();
@@ -82,4 +85,4 @@ private:
     void create_frame_holders();
 };
 
-} // namespace DepthAI
+}  // namespace DepthAI
