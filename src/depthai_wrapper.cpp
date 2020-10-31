@@ -166,8 +166,12 @@ void DepthAI::get_streams(
         }
 
         if(!std::get<0>(packets).empty()){
+            // std::cout << "lsit --> " << std::get<0>(packets).size() << std::endl;
             output_NN_obj = std::get<0>(packets);
         }
+        // else{
+        //     std::cout << "empty" << std::endl;
+        // }
 
     }
 
