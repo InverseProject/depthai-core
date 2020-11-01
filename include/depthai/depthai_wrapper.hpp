@@ -33,10 +33,12 @@ public:
      */
     DepthAI(const std::string& usb_device, const std::string& config_file, bool usb2_mode = false);
 
-    /* API to stream output frames from device.
+    /** API to stream output frames from device.
      * AI models results and metadata is WIP
      * @param output_streams (std::unordered_map<std::string, CV_mat_ptr>): output_streams is a
      * placeholder to extract all the streams being sent by the device.
+     * @param  output_NN_obj (std::list<std::shared_ptr<NNetPacket>>): output_NN_obj is a 
+     * placeholder to return the NNetPacket with detected objects
      */
     void get_streams(
         std::unordered_map<std::string, CV_mat_ptr>& output_streams,

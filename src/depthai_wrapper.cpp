@@ -153,8 +153,6 @@ void DepthAI::get_streams(
             {
                 unsigned char* img_ptr = reinterpret_cast<unsigned char*>((it->second)->data);
                 const auto& received_data = sub_packet->getData();
-                // std::cout << "Stream name :" << sub_packet->stream_name << std::endl;
-                // std::cout << "Stream size :" << sub_packet->size() << std::endl;
 
                 memcpy(img_ptr, received_data, sub_packet->size());
                 if (dirty_check.find(sub_packet->stream_name) == dirty_check.end())
@@ -164,14 +162,11 @@ void DepthAI::get_streams(
                 }
             }
         }
-
+        // Updating output_NN_obj with most frequent NNet packets 
+        // obtained from getAvailableNNetAndDataPackets
         if(!std::get<0>(packets).empty()){
-            // std::cout << "lsit --> " << std::get<0>(packets).size() << std::endl;
             output_NN_obj = std::get<0>(packets);
         }
-        // else{
-        //     std::cout << "empty" << std::endl;
-        // }
 
     }
 
