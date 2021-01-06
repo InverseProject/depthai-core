@@ -157,17 +157,10 @@ void DepthAI::get_streams(std::unordered_map<std::string, CV_mat_ptr>& output_st
                 
                 if(sub_packet->stream_name == "color") {
                     // auto meta = sub_packet->getMetadata();
-                    std::cout << "hhihii " << rgb_height_ << "x" << rgb_width_ << std::endl;
                     cv::Mat yuv(rgb_height_ * 3/2, rgb_width_, CV_8UC1);
-                    std::cout << sub_packet->size() << "~~~~~~~~~~~~~" << yuv.total() * yuv.elemSize() << std::endl;
-                    // std::cout << "~~~~~~~~" << std::endl;
                     unsigned char* img_ptr = reinterpret_cast<unsigned char*>(yuv.data);
-                    // std::cout << sub_packet->size() << "~~~~~~~~~~~~~" << sizeof(yuv.data) << std::endl;
-                    std::cout << "hhihii------------- " << rgb_height_ << "x" << rgb_width_ << std::endl;
                     memcpy(img_ptr, received_data, sub_packet->size());
-                    std::cout << "hhihii Copy gasilfr " << rgb_height_ << "x" << rgb_width_ << std::endl;
-                    std::cout << sub_packet->size() << "xxxxxxx" << sizeof(yuv.data) << std::endl;
-                    // cv::cvtColor(yuv, *(it->second), cv::COLOR_YUV2BGR_IYUV);
+                    cv::cvtColor(yuv, *(it->second), cv::COLOR_YUV2BGR_IYUV);
                 }
                 else {
                     unsigned char* img_ptr = reinterpret_cast<unsigned char*>((it->second)->data);
