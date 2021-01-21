@@ -14,6 +14,7 @@ cmake_minimum_required(VERSION 3.2) # For Hunter
 #     SHA1 "062a19ab13ce8dffa9a882b6ce3e43bdabdf75d3"
 #     LOCAL # Local config for dependencies
 # )
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 # Move binary dir if windows, to shorten the path
 if(WIN32)
